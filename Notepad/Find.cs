@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace Notepad
 {
+    //
     public partial class Find : Form
     {
         RichTextBox richTextBox1;
@@ -118,6 +119,9 @@ namespace Notepad
             }
         }
 
-        
+        private void Find_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

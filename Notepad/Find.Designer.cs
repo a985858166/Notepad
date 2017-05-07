@@ -125,6 +125,7 @@
             this.Name = "Find";
             this.Text = "查找";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.Find_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
