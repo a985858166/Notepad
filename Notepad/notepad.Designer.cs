@@ -66,6 +66,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslposition = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslNumber = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslChinese = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslLetter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslNum = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsslPunctuation = new System.Windows.Forms.ToolStripStatusLabel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmSelectAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,10 +80,6 @@
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.tsslChinese = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsslLetter = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsslNum = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsslPunctuation = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -116,7 +116,7 @@
             // 
             this.tsmiNew.Name = "tsmiNew";
             this.tsmiNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.tsmiNew.Size = new System.Drawing.Size(147, 22);
+            this.tsmiNew.Size = new System.Drawing.Size(152, 22);
             this.tsmiNew.Text = "新建";
             this.tsmiNew.Click += new System.EventHandler(this.tsmiNew_Click);
             // 
@@ -124,7 +124,7 @@
             // 
             this.tsmiOpen.Name = "tsmiOpen";
             this.tsmiOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.tsmiOpen.Size = new System.Drawing.Size(147, 22);
+            this.tsmiOpen.Size = new System.Drawing.Size(152, 22);
             this.tsmiOpen.Text = "打开";
             this.tsmiOpen.Click += new System.EventHandler(this.tsmiOpen_Click);
             // 
@@ -132,21 +132,21 @@
             // 
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.tsmiSave.Size = new System.Drawing.Size(147, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
             this.tsmiSave.Text = "保存";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiSaveAs
             // 
             this.tsmiSaveAs.Name = "tsmiSaveAs";
-            this.tsmiSaveAs.Size = new System.Drawing.Size(147, 22);
+            this.tsmiSaveAs.Size = new System.Drawing.Size(152, 22);
             this.tsmiSaveAs.Text = "另存为";
             this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(147, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(152, 22);
             this.tsmiExit.Text = "退出";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -399,6 +399,30 @@
             this.tsslNumber.Size = new System.Drawing.Size(51, 17);
             this.tsslNumber.Text = "字数：0";
             // 
+            // tsslChinese
+            // 
+            this.tsslChinese.Name = "tsslChinese";
+            this.tsslChinese.Size = new System.Drawing.Size(51, 17);
+            this.tsslChinese.Text = "汉字：0";
+            // 
+            // tsslLetter
+            // 
+            this.tsslLetter.Name = "tsslLetter";
+            this.tsslLetter.Size = new System.Drawing.Size(51, 17);
+            this.tsslLetter.Text = "字母：0";
+            // 
+            // tsslNum
+            // 
+            this.tsslNum.Name = "tsslNum";
+            this.tsslNum.Size = new System.Drawing.Size(51, 17);
+            this.tsslNum.Text = "数字：0";
+            // 
+            // tsslPunctuation
+            // 
+            this.tsslPunctuation.Name = "tsslPunctuation";
+            this.tsslPunctuation.Size = new System.Drawing.Size(51, 17);
+            this.tsslPunctuation.Text = "标点：0";
+            // 
             // richTextBox1
             // 
             this.richTextBox1.ContextMenuStrip = this.contextMenuStrip1;
@@ -462,30 +486,6 @@
             this.saveFileDialog1.FileName = "新建文本";
             this.saveFileDialog1.Filter = "rtf文件(*.rtf)|*.rtf|所有文件|*.*";
             this.saveFileDialog1.RestoreDirectory = true;
-            // 
-            // tsslChinese
-            // 
-            this.tsslChinese.Name = "tsslChinese";
-            this.tsslChinese.Size = new System.Drawing.Size(51, 17);
-            this.tsslChinese.Text = "汉字：0";
-            // 
-            // tsslLetter
-            // 
-            this.tsslLetter.Name = "tsslLetter";
-            this.tsslLetter.Size = new System.Drawing.Size(51, 17);
-            this.tsslLetter.Text = "字母：0";
-            // 
-            // tsslNum
-            // 
-            this.tsslNum.Name = "tsslNum";
-            this.tsslNum.Size = new System.Drawing.Size(51, 17);
-            this.tsslNum.Text = "数字：0";
-            // 
-            // tsslPunctuation
-            // 
-            this.tsslPunctuation.Name = "tsslPunctuation";
-            this.tsslPunctuation.Size = new System.Drawing.Size(51, 17);
-            this.tsslPunctuation.Text = "标点：0";
             // 
             // notepad
             // 

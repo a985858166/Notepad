@@ -24,8 +24,64 @@ namespace Notepad
 
             }
             InitializeComponent();
+            //---
+            this.richTextBox1.DragEnter += RichTextBox1_DragEnter; //添加一个拖入边界时的事件
+            this.richTextBox1.DragDrop += RichTextBox1_DragDrop; //添加一个拖入后放开鼠标左键的事件
 
         }
+
+        private void RichTextBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] rs = (string[])e.Data.GetData(DataFormats.FileDrop);
+                path = rs[0];
+                if (richTextBox1.Text == "" && path == "") //如果路径和内容同时为空，直接打开即可。
+                {
+                    open1(path);
+                    return;
+                }
+                if (isChange)//判断文件是否修改过
+                {
+                    DialogResult re = MessageBox.Show("文本的文字已经更改是否保存文本？", "记事本", MessageBoxButtons.YesNoCancel);//提示用户是否保存
+                    if (re == System.Windows.Forms.DialogResult.Yes)//选择是的话调用保存这个方法 
+                    {
+                        if (SaveAs())
+                        {
+                            isChange = false;
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (re == System.Windows.Forms.DialogResult.No)//选择否的话直接调用退出即可。
+                        {
+                            open1(path);
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    open1(path);
+                }
+                
+            }
+        }
+
+        private void RichTextBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
         List<string> lately = new List<string>();//用来储存撤销的文本
         List<int> latelyCursor = new List<int>();//用来储存撤销的光标
         int latelyIndexes;//用来储存撤销到第几个的位置
@@ -34,6 +90,7 @@ namespace Notepad
         bool b = true;//这个bool类型只使用一次就是让取消撤销可以同步
         bool isChange = false;//判断文本字符是否改变
         string path = "";
+
 
         private bool SaveAs()
         {
@@ -229,6 +286,7 @@ namespace Notepad
 
         private void notepad_Load(object sender, EventArgs e)
         {
+            richTextBox1.AllowDrop = true;//允许拖入文件到文本框
             if (path != "")
             {
 
@@ -313,24 +371,105 @@ namespace Notepad
             Goto newGoto = new Goto(richTextBox1);
             newGoto.Show();
         }
-
-        private void tsmiOpen_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 打开文件的方法
+        /// </summary>
+        private bool open()
         {
-
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)//判断是否选中文件并确定。
             {
-
                 path = openFileDialog1.FileName; //获取选中文件的路径
                 this.Text = Path.GetFileNameWithoutExtension(path) + "-记事本";//获取文件的名字并打印在标题上。
-                StreamReader sr = new StreamReader(openFileDialog1.FileName, Encoding.Default);//NEW一个处理文本的类
-
-                while (!sr.EndOfStream) //此循环实现打开文本。 
+                using (FileStream fsRead = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
                 {
-                    richTextBox1.AppendText(sr.ReadLine() + "\n"); //此方法效率低下，无法打开大文本，有待改进。
+                    byte[] Buffer = new byte[1024 * 1024 * 5];
+                    string str = "";
+                    richTextBox1.Text = "";
+                    while (true)
+                    {
+                        int r = fsRead.Read(Buffer, 0, Buffer.Length);
+                        if (r == 0)
+                        {
+                            break;
+                        }
+                        str = Encoding.Default.GetString(Buffer, 0, r);
+                        richTextBox1.AppendText(str);
+
+                    }
+
                 }
-                sr.Close();//关闭这个类
                 isChange = false; //既然是打开文件，就不算文本发生改变。不然刚打开什么都没动马上关闭就提示文本发生改变是否保存就尴尬了。
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 这个打开的方法不需要选择路径
+        /// </summary>
+        /// <returns></returns>
+        private void open1(string newpath)
+        {
+
+            path = newpath; //获取选中文件的路径
+            this.Text = Path.GetFileNameWithoutExtension(path) + "-记事本";//获取文件的名字并打印在标题上。
+            using (FileStream fsRead = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
+            {
+                byte[] Buffer = new byte[1024 * 1024 * 5];
+                string str = "";
+                richTextBox1.Text = "";
+                while (true)
+                {
+                    int r = fsRead.Read(Buffer, 0, Buffer.Length);
+                    if (r == 0)
+                    {
+                        break;
+                    }
+                    str = Encoding.Default.GetString(Buffer, 0, r);
+                    richTextBox1.AppendText(str);
+
+                }
+
+            }
+            isChange = false; //既然是打开文件，就不算文本发生改变。不然刚打开什么都没动马上关闭就提示文本发生改变是否保存就尴尬了。
+                
+            
+            
+        }
+        private void tsmiOpen_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.Text == "" && path == "") //如果路径和内容同时为空，直接打开即可。
+            {
+                open();
+                return;
+            }
+            if (isChange)//判断文件是否修改过
+            {
+                DialogResult re = MessageBox.Show("文本的文字已经更改是否保存文本？", "记事本", MessageBoxButtons.YesNoCancel);//提示用户是否保存
+                if (re == System.Windows.Forms.DialogResult.Yes)//选择是的话调用保存这个方法 然后退出即可。
+                {
+                    if (SaveAs())
+                    {
+                        isChange = false;
+                    }
+                }
+                else
+                {
+                    if (re == System.Windows.Forms.DialogResult.No)//选择否的话直接调用退出即可。
+                    {
+                        open();
+                    }
+
+                }
+
+            }
+            else
+            {
+                open();
+            }
+
         }
 
         private void tsmiNew_Click(object sender, EventArgs e)
@@ -431,7 +570,7 @@ namespace Notepad
                 }
 
             }
-            return true;
+            return false;
         }
         private void tsmiExit_Click(object sender, EventArgs e)
         {
@@ -443,8 +582,8 @@ namespace Notepad
             if (Exit())//调用退出方法
             {
                 e.Cancel = true;
-            } 
-            
+            }
+
         }
 
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
