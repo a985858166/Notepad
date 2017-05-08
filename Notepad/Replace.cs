@@ -87,7 +87,7 @@ namespace Notepad
             }
         }
 
-        private void btnFind_Click(object sender, EventArgs e)
+        public void btnFind_Click(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
             {
@@ -162,6 +162,12 @@ namespace Notepad
                     richTextBox1.SelectedText = tbReplace.Text;
                 }
             }
+        }
+
+        private void Replace_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
 
        

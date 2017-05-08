@@ -24,7 +24,7 @@ namespace Notepad
             this.richTextBox1 = richTextBox1;
         }
 
-        private void btnFind_Click(object sender, EventArgs e)
+        public void btnFind_Click(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
             {
@@ -124,6 +124,12 @@ namespace Notepad
         private void Find_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Find_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
     }
 }

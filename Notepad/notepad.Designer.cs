@@ -116,7 +116,7 @@
             // 
             this.tsmiNew.Name = "tsmiNew";
             this.tsmiNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.tsmiNew.Size = new System.Drawing.Size(152, 22);
+            this.tsmiNew.Size = new System.Drawing.Size(147, 22);
             this.tsmiNew.Text = "新建";
             this.tsmiNew.Click += new System.EventHandler(this.tsmiNew_Click);
             // 
@@ -124,7 +124,7 @@
             // 
             this.tsmiOpen.Name = "tsmiOpen";
             this.tsmiOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.tsmiOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOpen.Size = new System.Drawing.Size(147, 22);
             this.tsmiOpen.Text = "打开";
             this.tsmiOpen.Click += new System.EventHandler(this.tsmiOpen_Click);
             // 
@@ -132,21 +132,21 @@
             // 
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(147, 22);
             this.tsmiSave.Text = "保存";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiSaveAs
             // 
             this.tsmiSaveAs.Name = "tsmiSaveAs";
-            this.tsmiSaveAs.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSaveAs.Size = new System.Drawing.Size(147, 22);
             this.tsmiSaveAs.Text = "另存为";
             this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(147, 22);
             this.tsmiExit.Text = "退出";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -230,6 +230,7 @@
             this.tsmiFindNext.Name = "tsmiFindNext";
             this.tsmiFindNext.Size = new System.Drawing.Size(243, 22);
             this.tsmiFindNext.Text = "查找下一个";
+            this.tsmiFindNext.Click += new System.EventHandler(this.tsmiFindNext_Click);
             // 
             // tsmiReplace
             // 

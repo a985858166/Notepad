@@ -125,6 +125,7 @@
             this.Name = "Find";
             this.Text = "查找";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Find_FormClosing);
             this.Load += new System.EventHandler(this.Find_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -140,7 +141,7 @@
         private System.Windows.Forms.RadioButton radUp;
         private System.Windows.Forms.RadioButton radDown;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnFind;
-        private System.Windows.Forms.TextBox tbFind;
+        public System.Windows.Forms.Button btnFind;
+        public System.Windows.Forms.TextBox tbFind;
     }
 }
