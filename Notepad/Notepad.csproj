@@ -65,12 +65,6 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Find.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Find.Designer.cs">
-      <DependentUpon>Find.cs</DependentUpon>
-    </Compile>
     <Compile Include="Goto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,9 +93,6 @@
     </Compile>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Find.resx">
-      <DependentUpon>Find.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Goto.resx">
       <DependentUpon>Goto.cs</DependentUpon>

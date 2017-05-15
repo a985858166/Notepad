@@ -15,12 +15,21 @@ namespace Notepad
 {
     public partial class notepad : Form
     {
+        List<string> lately = new List<string>();//用来储存撤销的文本
+        List<int> latelyCursor = new List<int>();//用来储存撤销的光标
+        int latelyIndexes;//用来储存撤销到第几个的位置
+        bool latelyWhether = true;//用来判断是由撤销引起的文本变化还是用户的输入与删除。
+        int number = 10;//储存最多撤销的次数。可用于扩展到用户自定
+        bool b = true;//这个bool类型只使用一次就是让取消撤销可以同步
+        bool isChange = false;//判断文本字符是否改变
+        string path = "";//用来储存路径
+        Replace R; //定义一个储存查找替换的全局类。
 
-        public notepad(string[] args)
+        public notepad(string[] args)//这个参数是文件拖到程序图标时获取文件路径用的
         {
-            if (args.Length >= 1)
+            if (args.Length >= 1)//判断是否有文件拖入
             {
-                path = args[0];
+                path = args[0]; //如果有获取该路径
 
             }
             InitializeComponent();
@@ -30,6 +39,11 @@ namespace Notepad
 
         }
 
+        /// <summary>
+        /// 获取拖入文本的路径并打开
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RichTextBox1_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -50,11 +64,11 @@ namespace Notepad
                         {
                             isChange = false;
                         }
-                        
+
                     }
                     else
                     {
-                        if (re == System.Windows.Forms.DialogResult.No)//选择否的话直接调用退出即可。
+                        if (re == System.Windows.Forms.DialogResult.No)//选择否的话什么都不干
                         {
                             open1(path);
                         }
@@ -64,34 +78,27 @@ namespace Notepad
                 }
                 else
                 {
-                    open1(path);
+                    open1(path);//文件文本未被修改过直接打开即可。
                 }
-                
+
             }
         }
-
+        /// <summary>
+        /// 判断拖到文本框的文件是否为文本如果是可以拖入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RichTextBox1_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                e.Effect = DragDropEffects.Copy;
+                e.Effect = DragDropEffects.Copy; 
             }
             else
             {
                 e.Effect = DragDropEffects.None;
             }
         }
-
-        List<string> lately = new List<string>();//用来储存撤销的文本
-        List<int> latelyCursor = new List<int>();//用来储存撤销的光标
-        int latelyIndexes;//用来储存撤销到第几个的位置
-        bool latelyWhether = true;//用来判断是由撤销引起的文本变化还是用户的输入与删除。
-        int number = 10;//储存最多撤销的次数。可用于扩展到用户自定
-        bool b = true;//这个bool类型只使用一次就是让取消撤销可以同步
-        bool isChange = false;//判断文本字符是否改变
-        string path = "";
-
-
         private bool SaveAs()
         {
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK) //判断是否保存成功
@@ -189,7 +196,11 @@ namespace Notepad
                 tsmiStatusBar.Checked = true;
             }
         }
-
+        /// <summary>
+        /// 另存为
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiSaveAs_Click(object sender, EventArgs e)//调用另存为的方法。
         {
             SaveAs();
@@ -231,19 +242,23 @@ namespace Notepad
         {
             richTextBox1.Paste();
         }
-
+        /// <summary>
+        /// 撤销的方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiRevoke_Click(object sender, EventArgs e)
         {
-            if (latelyIndexes == 0)
+            if (latelyIndexes == 0)  //当撤销的位置到底时，直接退出该方法
             {
 
                 return;
             }
-            latelyWhether = false;
-            richTextBox1.Text = lately.ElementAt(latelyIndexes - 1);
-            richTextBox1.Select(latelyCursor.ElementAt(latelyIndexes - 1), 0);
-            richTextBox1.ScrollToCaret();
-            latelyIndexes--;
+            latelyWhether = false; //用来判断是由撤销引起的文本变化还是用户的输入与删除。 避免重新储存撤销的内容
+            richTextBox1.Text = lately.ElementAt(latelyIndexes - 1);//写入撤销后的文本内容。
+            richTextBox1.Select(latelyCursor.ElementAt(latelyIndexes - 1), 0);//写入撤销后的文本光标
+            richTextBox1.ScrollToCaret();//将内容滚到光标位置
+            latelyIndexes--; //撤销位置-1；
         }
         /// <summary>
         /// 剪切
@@ -264,9 +279,27 @@ namespace Notepad
         {
             this.tsmiShear_Click(sender, e);
         }
-
+        /// <summary>
+        /// 文本内容发生改变执行的方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+            //
+            if (richTextBox1.Text == "")
+            {
+                tsmiFind.Enabled = false;
+                tsmiFindNext.Enabled = false;  
+                tsmiReplace.Enabled = false; 
+            }
+            else                                    //这几个判断是为了判断当文本框有无字时查找 替换 查找下一个 控件是否启用
+            {
+                tsmiFind.Enabled = true;
+                tsmiFindNext.Enabled = true;
+                tsmiReplace.Enabled = true;
+            }
+            //
             if (latelyWhether)
             {
                 latelyIndexes = lately.Count;
@@ -280,95 +313,81 @@ namespace Notepad
                 }
             }
             latelyWhether = true;
-            isChange = true;
+            //
+            isChange = true; //既然文字改变过那么 就需要把这个判断是否改变过的变量改为true 就是改变过
 
         }
+        /// <summary>
+        /// 程序刚打开时执行的方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void notepad_Load(object sender, EventArgs e)
         {
+            Replace R = new Replace(richTextBox1); //直接先new一个查找和替换的窗体。实现关闭窗体后按F3可以查找下一个
+            this.R = R;//把这个窗体付给全局。
+            
             richTextBox1.AllowDrop = true;//允许拖入文件到文本框
-            if (path != "")
+            if (path != "")//当有文件拖入程序时获取的文件路径不为空执行
             {
 
-                this.Text = Path.GetFileNameWithoutExtension(path) + "-记事本";
-                StreamReader sr = new StreamReader(path, Encoding.Default);
+                open1(path); //路径不为空直接调用打开方法
 
-                while (!sr.EndOfStream)
-                {
-                    richTextBox1.AppendText(sr.ReadLine() + "\n");
-                }
-                sr.Close();
-                isChange = false;
+
             }
             //----------
-            lately.Add("");
-            latelyCursor.Add(0);
+            lately.Add("");    //如果程序刚打开 写完一个字按撤销的话，就变空白了。记录这个空白
+            latelyCursor.Add(0);// 记录光标位置
 
         }
 
         private void tsmiCancel_Click(object sender, EventArgs e)
         {
-            if (latelyIndexes == lately.Count)
+            if (latelyIndexes == lately.Count) //判断撤销位置是否为最新，如果说无法撤销直接退出该方法
             {
 
                 return;
             }
-            if (b)
+            if (b) //把取消撤销的位置对上。
             {
                 latelyIndexes++;
                 b = false;
             }
-            latelyWhether = false;
-            richTextBox1.Text = lately.ElementAt(latelyIndexes);
-            richTextBox1.Select(latelyCursor.ElementAt(latelyIndexes), 0);
-            richTextBox1.ScrollToCaret();
-            latelyIndexes++;
+            latelyWhether = false; // 确定文本内容是由撤销改变的，避免重复写入撤销
+            richTextBox1.Text = lately.ElementAt(latelyIndexes);//返回到取消撤销的内容
+            richTextBox1.Select(latelyCursor.ElementAt(latelyIndexes), 0);//返回到取消撤销的光标
+            richTextBox1.ScrollToCaret();//将内容滚到光标位置
+            latelyIndexes++;//撤销内容的位置+1
         }
-
+        /// <summary>
+        /// 删除的方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiDelete_Click(object sender, EventArgs e)
         {
-            richTextBox1.SelectedText = "";
+            richTextBox1.SelectedText = "";//好像这个方法并没有什么软用，系统自带。
         }
 
-        private void notepad_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((Keys)e.KeyChar == Keys.Delete)
-            {
-                tsmiDelete_Click(sender, e);
-            }
-
-        }
-
+        
+        /// <summary>
+        /// 获取系统时间
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiTime_Click(object sender, EventArgs e)
         {
             richTextBox1.SelectedText = DateTime.Now.ToString();
         }
 
-        private void tsmiCompile_Click(object sender, EventArgs e)
-        {
-            //if (richTextBox1.SelectedText.Length > 0)
-            //{
-            //    tsmiShear.Enabled = true;
-            //    tsmiCopy.Enabled = true;
-            //    tsmiDelete.Enabled = true;
-            //    //
-            //    //tsmShear.Enabled = true;
-            //    //tsmCopy.Enabled = true;
-            //}
-            //else
-            //{
-            //    tsmiShear.Enabled = false;
-            //    tsmiCopy.Enabled = false;
-            //    tsmiDelete.Enabled = false;
-            //    //
-            //    //tsmShear.Enabled = false;
-            //    //tsmCopy.Enabled = false;
-            //}
-        }
-
+        
+        //转跳方法
         private void tsmiGoto_Click(object sender, EventArgs e)
         {
-            Goto newGoto = new Goto(richTextBox1);
+            Goto newGoto = new Goto(richTextBox1); //打开转条窗体
+            newGoto.Top = this.Top + 100;
+            newGoto.Left = this.Left + 100;
             newGoto.Show();
         }
         /// <summary>
@@ -572,9 +591,14 @@ namespace Notepad
             }
             return false;
         }
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiExit_Click(object sender, EventArgs e)
         {
-            Exit();
+            Exit();//调用退出方法
         }
 
         private void notepad_FormClosing(object sender, FormClosingEventArgs e)
@@ -589,12 +613,12 @@ namespace Notepad
         private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             string str;
-            str = "第：" + (richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart) + 1).ToString() + "行，";
+            str = "第：" + (richTextBox1.GetLineFromCharIndex(richTextBox1.SelectionStart) + 1).ToString() + "行，"; //获取第几行第几列和字数的方法
             str += "第：" + (richTextBox1.SelectionStart - richTextBox1.GetFirstCharIndexOfCurrentLine()) + "列";
             tsslposition.Text = str;
             tsslNumber.Text = "字数：" + richTextBox1.Text.Length;
             //--------------
-            int inum = 0;
+            int inum = 0;       //这一段判断字数个数，字母个数，汉族个数，效率极其低下。而且不太准
             int ichar = 0;
             int ipunctuation = 0;
             int ichi = 0;
@@ -630,11 +654,11 @@ namespace Notepad
             //-----------------
             if (richTextBox1.SelectedText.Length > 0)
             {
-                tsmiShear.Enabled = true;
+                tsmiShear.Enabled = true; //实现没中内容时复制剪切删除按键是暗的
                 tsmiCopy.Enabled = true;
                 tsmiDelete.Enabled = true;
                 //
-                tsmShear.Enabled = true;
+                tsmShear.Enabled = true;//右键中的复制和剪切
                 tsmCopy.Enabled = true;
             }
             else
@@ -648,26 +672,95 @@ namespace Notepad
             }
         }
 
+        /// <summary>
+        /// 查找功能
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiFind_Click(object sender, EventArgs e)
         {
-            Find newFind = new Find(richTextBox1);
-            newFind.Show();
+            R.Top = this.Top + 100; //替换隐藏几个控件就是查找了。
+            R.Left = this.Left + 100;
+            R.label2.Visible = false;
+            R.tbReplace.Visible = false;
+            R.btnReplace.Visible = false;
+            R.btnReplaceAll.Visible = false;
+            R.tbFind.Text = ""; //清空查找里的内容
+            R.Visible = true;//显示窗体
         }
-
+        /// <summary>
+        /// 替换功能
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmiReplace_Click(object sender, EventArgs e)
         {
-            Replace newReplace = new Replace(richTextBox1);
-            newReplace.Show();
+            this.R.Top = this.Top + 100; //确保替换的控件全部显示
+            this.R.Left = this.Left + 100;
+            R.label2.Visible = true;
+            R.tbReplace.Visible = true;
+            R.btnReplace.Visible = true;
+            R.btnReplaceAll.Visible = true;
+            R.tbFind.Text = ""; //清空替换里的内容
+            R.Visible = true;//显示窗体
         }
-
+        /// <summary>
+        /// 右键里的粘贴
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmPaste_Click(object sender, EventArgs e)
         {
             this.tsmiPaste_Click(sender, e);
         }
-
+        /// <summary>
+        /// 右键里的复制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmCopy_Click(object sender, EventArgs e)
         {
             this.tsmiCopy_Click(sender, e);
+        }
+        /// <summary>
+        /// 查找下一个
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiFindNext_Click(object sender, EventArgs e)
+        {
+            if (R.tbFind.Text == "")
+            {
+                if (this.tsmiFind.Enabled)
+                {
+                    this.tsmiFind_Click(sender, e);//如果查找内容为空且查找控件已激活直接打开查找窗体
+                }
+                
+            }
+            else
+            {
+                R.btnFind_Click(sender, e);//调用查找窗体里面的查找事件
+            }
+            
+        }
+
+        
+
+        /// <summary>
+        /// 获取键盘按下的按键
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void notepad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keys)e.KeyValue == Keys.Delete)//快捷键的实现
+            {
+                tsmiDelete_Click(sender, e);
+            }
+            if ((Keys)e.KeyValue == Keys.F3)
+            {
+                tsmiFindNext_Click(sender, e);
+            }
         }
     }
 }
