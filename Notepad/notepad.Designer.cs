@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(notepad));
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.tsmiFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -276,21 +277,21 @@
             // tsmiWordWrap
             // 
             this.tsmiWordWrap.Name = "tsmiWordWrap";
-            this.tsmiWordWrap.Size = new System.Drawing.Size(152, 22);
+            this.tsmiWordWrap.Size = new System.Drawing.Size(124, 22);
             this.tsmiWordWrap.Text = "自动换行";
             this.tsmiWordWrap.Click += new System.EventHandler(this.tsmiWordWrap_Click);
             // 
             // tsmiTypeface
             // 
             this.tsmiTypeface.Name = "tsmiTypeface";
-            this.tsmiTypeface.Size = new System.Drawing.Size(152, 22);
+            this.tsmiTypeface.Size = new System.Drawing.Size(124, 22);
             this.tsmiTypeface.Text = "字体";
             this.tsmiTypeface.Click += new System.EventHandler(this.tsmiTypeface_Click);
             // 
             // tsmiColour
             // 
             this.tsmiColour.Name = "tsmiColour";
-            this.tsmiColour.Size = new System.Drawing.Size(152, 22);
+            this.tsmiColour.Size = new System.Drawing.Size(124, 22);
             this.tsmiColour.Text = "颜色";
             this.tsmiColour.Click += new System.EventHandler(this.tsmiColour_Click);
             // 

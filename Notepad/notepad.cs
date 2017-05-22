@@ -22,6 +22,7 @@ namespace Notepad
         int number = 10;//储存最多撤销的次数。可用于扩展到用户自定
         bool b = true;//这个bool类型只使用一次就是让取消撤销可以同步
         bool isChange = false;//判断文本字符是否改变
+        bool Change = false;//判断文本字符改变是否由于文本内容改变的，还是由打开或新建引起的。
         string path = "";//用来储存路径
         Replace R; //定义一个储存查找替换的全局类。
 
@@ -81,6 +82,7 @@ namespace Notepad
                 {
                     open1(path);//文件文本未被修改过直接打开即可。
                 }
+                Change = true;
                 
             }
         }
@@ -316,6 +318,11 @@ namespace Notepad
             latelyWhether = true;
             //
             isChange = true; //既然文字改变过那么 就需要把这个判断是否改变过的变量改为true 就是改变过
+            if (Change)
+            {
+                isChange = false;
+                Change = false;
+            }
 
         }
         /// <summary>
