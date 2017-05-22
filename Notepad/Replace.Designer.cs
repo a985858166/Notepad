@@ -132,6 +132,7 @@
             // 
             // btnReplace
             // 
+            this.btnReplace.Enabled = false;
             this.btnReplace.Location = new System.Drawing.Point(370, 47);
             this.btnReplace.Name = "btnReplace";
             this.btnReplace.Size = new System.Drawing.Size(75, 23);
@@ -142,6 +143,7 @@
             // 
             // btnReplaceAll
             // 
+            this.btnReplaceAll.Enabled = false;
             this.btnReplaceAll.Location = new System.Drawing.Point(370, 78);
             this.btnReplaceAll.Name = "btnReplaceAll";
             this.btnReplaceAll.Size = new System.Drawing.Size(75, 23);
@@ -169,6 +171,7 @@
             this.Name = "Replace";
             this.Text = "替换";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Replace_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -183,11 +186,11 @@
         private System.Windows.Forms.RadioButton radUp;
         private System.Windows.Forms.RadioButton radDown;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnFind;
-        private System.Windows.Forms.TextBox tbFind;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox tbReplace;
-        private System.Windows.Forms.Button btnReplace;
-        private System.Windows.Forms.Button btnReplaceAll;
+        public System.Windows.Forms.Button btnFind;
+        public System.Windows.Forms.TextBox tbFind;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox tbReplace;
+        public System.Windows.Forms.Button btnReplace;
+        public System.Windows.Forms.Button btnReplaceAll;
     }
 }

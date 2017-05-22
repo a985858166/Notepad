@@ -59,10 +59,6 @@
             this.tsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCheckHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsslposition = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsslNumber = new System.Windows.Forms.ToolStripStatusLabel();
@@ -81,7 +77,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip2.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -116,7 +111,7 @@
             // 
             this.tsmiNew.Name = "tsmiNew";
             this.tsmiNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.tsmiNew.Size = new System.Drawing.Size(152, 22);
+            this.tsmiNew.Size = new System.Drawing.Size(147, 22);
             this.tsmiNew.Text = "新建";
             this.tsmiNew.Click += new System.EventHandler(this.tsmiNew_Click);
             // 
@@ -124,7 +119,7 @@
             // 
             this.tsmiOpen.Name = "tsmiOpen";
             this.tsmiOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.tsmiOpen.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOpen.Size = new System.Drawing.Size(147, 22);
             this.tsmiOpen.Text = "打开";
             this.tsmiOpen.Click += new System.EventHandler(this.tsmiOpen_Click);
             // 
@@ -132,21 +127,21 @@
             // 
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.tsmiSave.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSave.Size = new System.Drawing.Size(147, 22);
             this.tsmiSave.Text = "保存";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // tsmiSaveAs
             // 
             this.tsmiSaveAs.Name = "tsmiSaveAs";
-            this.tsmiSaveAs.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSaveAs.Size = new System.Drawing.Size(147, 22);
             this.tsmiSaveAs.Text = "另存为";
             this.tsmiSaveAs.Click += new System.EventHandler(this.tsmiSaveAs_Click);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(147, 22);
             this.tsmiExit.Text = "退出";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -168,7 +163,6 @@
             this.tsmiCompile.Name = "tsmiCompile";
             this.tsmiCompile.Size = new System.Drawing.Size(44, 21);
             this.tsmiCompile.Text = "编辑";
-            this.tsmiCompile.Click += new System.EventHandler(this.tsmiCompile_Click);
             // 
             // tsmiRevoke
             // 
@@ -188,6 +182,7 @@
             // 
             // tsmiShear
             // 
+            this.tsmiShear.Enabled = false;
             this.tsmiShear.Name = "tsmiShear";
             this.tsmiShear.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.tsmiShear.Size = new System.Drawing.Size(243, 22);
@@ -196,6 +191,7 @@
             // 
             // tsmiCopy
             // 
+            this.tsmiCopy.Enabled = false;
             this.tsmiCopy.Name = "tsmiCopy";
             this.tsmiCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.tsmiCopy.Size = new System.Drawing.Size(243, 22);
@@ -212,6 +208,7 @@
             // 
             // tsmiDelete
             // 
+            this.tsmiDelete.Enabled = false;
             this.tsmiDelete.Name = "tsmiDelete";
             this.tsmiDelete.Size = new System.Drawing.Size(243, 22);
             this.tsmiDelete.Text = "删除                               Del";
@@ -219,6 +216,7 @@
             // 
             // tsmiFind
             // 
+            this.tsmiFind.Enabled = false;
             this.tsmiFind.Name = "tsmiFind";
             this.tsmiFind.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.tsmiFind.Size = new System.Drawing.Size(243, 22);
@@ -227,12 +225,15 @@
             // 
             // tsmiFindNext
             // 
+            this.tsmiFindNext.Enabled = false;
             this.tsmiFindNext.Name = "tsmiFindNext";
             this.tsmiFindNext.Size = new System.Drawing.Size(243, 22);
             this.tsmiFindNext.Text = "查找下一个";
+            this.tsmiFindNext.Click += new System.EventHandler(this.tsmiFindNext_Click);
             // 
             // tsmiReplace
             // 
+            this.tsmiReplace.Enabled = false;
             this.tsmiReplace.Name = "tsmiReplace";
             this.tsmiReplace.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.tsmiReplace.Size = new System.Drawing.Size(243, 22);
@@ -241,6 +242,7 @@
             // 
             // tsmiGoto
             // 
+            this.tsmiGoto.Enabled = false;
             this.tsmiGoto.Name = "tsmiGoto";
             this.tsmiGoto.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
             this.tsmiGoto.Size = new System.Drawing.Size(243, 22);
@@ -275,21 +277,21 @@
             // tsmiWordWrap
             // 
             this.tsmiWordWrap.Name = "tsmiWordWrap";
-            this.tsmiWordWrap.Size = new System.Drawing.Size(124, 22);
+            this.tsmiWordWrap.Size = new System.Drawing.Size(152, 22);
             this.tsmiWordWrap.Text = "自动换行";
             this.tsmiWordWrap.Click += new System.EventHandler(this.tsmiWordWrap_Click);
             // 
             // tsmiTypeface
             // 
             this.tsmiTypeface.Name = "tsmiTypeface";
-            this.tsmiTypeface.Size = new System.Drawing.Size(124, 22);
+            this.tsmiTypeface.Size = new System.Drawing.Size(152, 22);
             this.tsmiTypeface.Text = "字体";
             this.tsmiTypeface.Click += new System.EventHandler(this.tsmiTypeface_Click);
             // 
             // tsmiColour
             // 
             this.tsmiColour.Name = "tsmiColour";
-            this.tsmiColour.Size = new System.Drawing.Size(124, 22);
+            this.tsmiColour.Size = new System.Drawing.Size(152, 22);
             this.tsmiColour.Text = "颜色";
             this.tsmiColour.Click += new System.EventHandler(this.tsmiColour_Click);
             // 
@@ -332,45 +334,6 @@
             this.tsmiAbout.Size = new System.Drawing.Size(136, 22);
             this.tsmiAbout.Text = "关于记事本";
             this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripButton3});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(684, 25);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripButton3";
             // 
             // statusStrip1
             // 
@@ -428,9 +391,9 @@
             this.richTextBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.HideSelection = false;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 50);
+            this.richTextBox1.Location = new System.Drawing.Point(0, 25);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(684, 315);
+            this.richTextBox1.Size = new System.Drawing.Size(684, 340);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
@@ -455,6 +418,7 @@
             // 
             // tsmShear
             // 
+            this.tsmShear.Enabled = false;
             this.tsmShear.Name = "tsmShear";
             this.tsmShear.Size = new System.Drawing.Size(153, 22);
             this.tsmShear.Text = "剪切    Ctrl+X";
@@ -462,6 +426,7 @@
             // 
             // tsmCopy
             // 
+            this.tsmCopy.Enabled = false;
             this.tsmCopy.Name = "tsmCopy";
             this.tsmCopy.Size = new System.Drawing.Size(153, 22);
             this.tsmCopy.Text = "复制    Ctrl+C";
@@ -476,15 +441,15 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.DefaultExt = "rtf";
-            this.openFileDialog1.Filter = "rtf文件(*.rtf)|*.rtf|所有文件|*.*";
+            this.openFileDialog1.DefaultExt = "txt";
+            this.openFileDialog1.Filter = "txt文件(*.txt)|*.txt|所有文件|*.*";
             this.openFileDialog1.RestoreDirectory = true;
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "rtf";
+            this.saveFileDialog1.DefaultExt = "txt";
             this.saveFileDialog1.FileName = "新建文本";
-            this.saveFileDialog1.Filter = "rtf文件(*.rtf)|*.rtf|所有文件|*.*";
+            this.saveFileDialog1.Filter = "txt文件(*.txt)|*.txt|所有文件|*.*";
             this.saveFileDialog1.RestoreDirectory = true;
             // 
             // notepad
@@ -494,18 +459,16 @@
             this.ClientSize = new System.Drawing.Size(684, 387);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "notepad";
             this.Text = "记事本";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.notepad_FormClosing);
             this.Load += new System.EventHandler(this.notepad_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.notepad_KeyPress);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.notepad_KeyDown);
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -542,12 +505,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiStatusBar;
         private System.Windows.Forms.ToolStripMenuItem tsmiCheckHelp;
         private System.Windows.Forms.ToolStripMenuItem tsmiAbout;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tsslposition;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem tsmiColour;

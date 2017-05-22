@@ -18,25 +18,32 @@ namespace Notepad
             InitializeComponent();
             this.richTextBox1 = richTextBox1;
         }
-
+        /// <summary>
+        /// 转跳按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             
-            if (Convert.ToInt32(maskedTextBox1.Text) > richTextBox1.Lines.Count() || Convert.ToInt32(maskedTextBox1.Text) == 0)
+            if (Convert.ToInt32(numericUpDown1.Value) <= richTextBox1.Lines.Count())//判断转跳行数是否小于最大行数
             {
-                MessageBox.Show("行数超过总行数","记事本-跳行");
-            }
-            else
-            {
-                richTextBox1.SelectionStart = richTextBox1.GetFirstCharIndexFromLine(Convert.ToInt32(maskedTextBox1.Text) - 1);
-                richTextBox1.SelectionLength = 0;
+                richTextBox1.SelectionStart = richTextBox1.GetFirstCharIndexFromLine(Convert.ToInt32(numericUpDown1.Value) - 1);
+                richTextBox1.SelectionLength = 0;//先把光标转到自己选定的行数，然后将滚动条滑倒当前位置实现转跳。
                 richTextBox1.Focus();
             }
+            
         }
-
+        /// <summary>
+        /// 确定可以输入的最大值
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Goto_Load(object sender, EventArgs e)
         {
-            maskedTextBox1.Text = Convert.ToString(richTextBox1.Lines.Count());
+
+            numericUpDown1.Value = Convert.ToDecimal(richTextBox1.Lines.Count()); 
+            numericUpDown1.Maximum = Convert.ToDecimal(richTextBox1.Lines.Count());
         }
     }
 }
